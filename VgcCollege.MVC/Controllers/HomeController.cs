@@ -17,6 +17,12 @@ namespace VgcCollege.MVC.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public IActionResult Error()
+        {
+            return View();
+        }
+
         [Authorize]
         public IActionResult RedirectByRole()
         {

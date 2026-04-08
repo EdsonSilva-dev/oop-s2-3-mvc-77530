@@ -29,24 +29,7 @@
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="RedirectByRole">Dashboard</a>
                             </li>
 
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown">
-                                        Admin
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Branches" asp-action="Index">Branches</a></li>
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Courses" asp-action="Index">Courses</a></li>
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Students" asp-action="Index">Students</a></li>
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Enrolments" asp-action="Index">Enrolments</a></li>
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Attendance" asp-action="Index">Attendance</a></li>
-                                        <li><hr class="dropdown-divider" /></li>
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Assignments" asp-action="Index">Assignments</a></li>
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Exams" asp-action="Index">Exams</a></li>
-                                    </ul>
-                                </li>
-                            }
+                          
 
                             @if (User.IsInRole("Admin"))
                             {
