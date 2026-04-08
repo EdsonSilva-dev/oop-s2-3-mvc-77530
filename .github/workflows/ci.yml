@@ -2,9 +2,14 @@ name: ci
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - master
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - master
+  workflow_dispatch:
 
 jobs:
   build-test-coverage:
@@ -22,11 +27,11 @@ jobs:
       - name: Restore
         run: dotnet restore
 
-      - name: Build (Release)
+      - name: Build
         run: dotnet build --configuration Release --no-restore
 
       - name: Test with coverage
-        run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults
+        run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --logger "trx;LogFileName=test-results.trx" --results-directory ./TestResults
 
       - name: Upload test results and coverage artifacts
         uses: actions/upload-artifact@v4
