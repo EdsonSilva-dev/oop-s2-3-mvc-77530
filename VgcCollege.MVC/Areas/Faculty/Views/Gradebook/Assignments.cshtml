@@ -71,7 +71,26 @@
                             <strong>@item.StudentName</strong><br />
                             <small class="text-muted">@item.StudentNumber</small>
                         </td>
-                        <td>@item.Score / @item.MaxScore</td>
+                        <td>
+                            @{
+                                var percentage = item.MaxScore == 0 ? 0 : Math.Round((item.Score / item.MaxScore) * 100, 2);
+                            }
+
+                            <div>@item.Score / @item.MaxScore</div>
+
+                            @if (percentage >= 70)
+                            {
+                                <span class="badge bg-success">@percentage%</span>
+                            }
+                            else if (percentage >= 40)
+                            {
+                                <span class="badge bg-warning text-dark">@percentage%</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">@percentage%</span>
+                            }
+                        </td>
                         <td>@item.Feedback</td>
                         <td>@item.GradedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
                         <td class="text-end">

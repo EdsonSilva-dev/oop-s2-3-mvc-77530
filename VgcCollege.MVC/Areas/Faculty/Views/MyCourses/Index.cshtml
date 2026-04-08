@@ -1,47 +1,11 @@
-﻿@model IEnumerable<VgcCollege.MVC.Areas.Faculty.ViewModels.FacultyExamResultIndexViewModel>
-@using Microsoft.AspNetCore.Mvc.Rendering
+﻿@model IEnumerable<VgcCollege.MVC.Areas.Faculty.ViewModels.FacultyCourseIndexViewModel>
 
 @{
-    ViewData["Title"] = "Exam Results Management";
-    var examOptions = ViewBag.ExamOptions as List<SelectListItem> ?? new();
+    ViewData["Title"] = "My Courses";
 }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Exam Results</h1>
-    <a asp-action="CreateResult" class="btn btn-primary">Create Exam Result</a>
-</div>
-
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
-
-<div class="card shadow-sm border-0 mb-3">
-    <div class="card-body">
-        <form method="get" class="row g-3">
-            <div class="col-md-6">
-                <label class="form-label">Exam</label>
-                <select name="examId" class="form-select">
-                    <option value="">-- All My Exams --</option>
-                    @foreach (var item in examOptions)
-                    {
-                        if (ViewBag.ExamId != null && ViewBag.ExamId.ToString() == item.Value)
-                        {
-                            <option value="@item.Value" selected>@item.Text</option>
-                        }
-                        else
-                        {
-                            <option value="@item.Value">@item.Text</option>
-                        }
-                    }
-                </select>
-            </div>
-
-            <div class="col-md-2 d-flex align-items-end">
-                <button type="submit" class="btn btn-outline-primary w-100">Filter</button>
-            </div>
-        </form>
-    </div>
+    <h1>My Courses</h1>
 </div>
 
 <div class="card shadow-sm border-0">
@@ -49,44 +13,37 @@
         <table class="table table-striped align-middle mb-0">
             <thead>
                 <tr>
-                    <th>Exam</th>
                     <th>Course</th>
-                    <th>Student</th>
-                    <th>Score</th>
-                    <th>Grade</th>
-                    <th>Status</th>
-                    <th>Recorded At</th>
+                    <th>Branch</th>
+                    <th>Period</th>
+                    <th>Role</th>
+                    <th>Students</th>
                     <th class="text-end">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var course in Model)
                 {
                     <tr>
-                        <td>@item.ExamTitle</td>
                         <td>
-                            <strong>@item.CourseName</strong><br />
-                            <small class="text-muted">@item.CourseCode</small>
+                            <strong>@course.CourseName</strong><br />
+                            <small class="text-muted">@course.CourseCode</small>
                         </td>
+                        <td>@course.BranchName</td>
+                        <td>@course.StartDate.ToString("dd/MM/yyyy") - @course.EndDate.ToString("dd/MM/yyyy")</td>
                         <td>
-                            <strong>@item.StudentName</strong><br />
-                            <small class="text-muted">@item.StudentNumber</small>
-                        </td>
-                        <td>@item.Score / @item.MaxScore</td>
-                        <td>@item.Grade</td>
-                        <td>
-                            @if (item.ResultsReleased)
+                            @if (course.IsTutor)
                             {
-                                <span class="badge bg-success">Released</span>
+                                <span class="badge bg-primary">Tutor</span>
                             }
                             else
                             {
-                                <span class="badge bg-warning text-dark">Provisional</span>
+                                <span class="badge bg-secondary">Faculty</span>
                             }
                         </td>
-                        <td>@item.RecordedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@course.TotalStudents</td>
                         <td class="text-end">
-                            <a asp-action="EditResult" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                            <a asp-action="Details" asp-route-id="@course.CourseId" class="btn btn-sm btn-outline-info">Details</a>
                         </td>
                     </tr>
                 }

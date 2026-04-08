@@ -32,7 +32,26 @@
                             <small class="text-muted">@result.CourseCode</small>
                         </td>
                         <td>@result.ExamTitle</td>
-                        <td>@result.Score / @result.MaxScore</td>
+                        <td>
+                            @{
+                                var percentage = result.MaxScore == 0 ? 0 : Math.Round((result.Score / result.MaxScore) * 100, 2);
+                            }
+
+                            <div>@result.Score / @result.MaxScore</div>
+
+                            @if (percentage >= 70)
+                            {
+                                <span class="badge bg-success">@percentage%</span>
+                            }
+                            else if (percentage >= 40)
+                            {
+                                <span class="badge bg-warning text-dark">@percentage%</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">@percentage%</span>
+                            }
+                        </td>
                         <td>@result.Grade</td>
                         <td>@result.Feedback</td>
                         <td>@result.RecordedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>

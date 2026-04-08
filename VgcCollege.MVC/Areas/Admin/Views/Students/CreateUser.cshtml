@@ -1,0 +1,79 @@
+﻿@model VgcCollege.MVC.Areas.Admin.ViewModels.CreateStudentUserViewModel
+
+@{
+    ViewData["Title"] = "Create Student User + Profile";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Create Student User + Profile</h1>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</div>
+
+<div class="alert alert-info">
+    This screen creates both the login account and the academic student profile in one step.
+</div>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <form asp-action="CreateUser" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Phone" class="form-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DateOfBirth" class="form-label"></label>
+                    <input asp-for="DateOfBirth" class="form-control" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="TemporaryPassword" class="form-label"></label>
+                    <input asp-for="TemporaryPassword" class="form-control" />
+                    <span asp-validation-for="TemporaryPassword" class="text-danger"></span>
+                    <small class="text-muted">This will be the initial password for the student login.</small>
+                </div>
+
+                <div class="col-md-6 mb-3 d-flex align-items-center">
+                    <div class="form-check mt-4">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label"></label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Student User + Profile</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

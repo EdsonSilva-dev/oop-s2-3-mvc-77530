@@ -147,6 +147,84 @@ namespace VgcCollege.MVC.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult CreateUser()
+        {
+            var vm = new CreateStudentUserViewModel
+            {
+                DateOfBirth = DateTime.Today.AddYears(-18),
+                TemporaryPassword = "Student123!",
+                IsActive = true
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateUser(CreateStudentUserViewModel model)
+        {
+            if (await _userManager.FindByEmailAsync(model.Email) != null)
+            {
+                ModelState.AddModelError(nameof(model.Email), "A user with this email already exists.");
+            }
+
+            var emailExistsInProfile = await _context.StudentProfiles.AnyAsync(s => s.Email == model.Email);
+            if (emailExistsInProfile)
+            {
+                ModelState.AddModelError(nameof(model.Email), "A student profile with this email already exists.");
+            }
+
+            if (model.DateOfBirth > DateTime.Today)
+            {
+                ModelState.AddModelError(nameof(model.DateOfBirth), "Date of birth cannot be in the future.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                DisplayName = model.FullName,
+                EmailConfirmed = true,
+                IsActive = model.IsActive
+            };
+
+            var createUserResult = await _userManager.CreateAsync(user, model.TemporaryPassword);
+
+            if (!createUserResult.Succeeded)
+            {
+                foreach (var error in createUserResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+                return View(model);
+            }
+
+            await _userManager.AddToRoleAsync(user, UserRoles.Student);
+
+            var studentProfile = new StudentProfile
+            {
+                ApplicationUserId = user.Id,
+                StudentNumber = await GenerateNextStudentNumberAsync(),
+                FullName = model.FullName,
+                Email = model.Email,
+                Phone = model.Phone,
+                Address = model.Address,
+                DateOfBirth = model.DateOfBirth
+            };
+
+            _context.StudentProfiles.Add(studentProfile);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = $"Student user and profile created successfully. Student Number: {studentProfile.StudentNumber}";
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Details(int id)
         {
             var student = await _context.StudentProfiles
@@ -276,6 +354,30 @@ namespace VgcCollege.MVC.Areas.Admin.Controllers
                 .ToList();
 
             return availableUsers;
+        }
+
+        private async Task<string> GenerateNextStudentNumberAsync()
+        {
+            var existingNumbers = await _context.StudentProfiles
+                .Select(s => s.StudentNumber)
+                .ToListAsync();
+
+            var maxNumber = 0;
+
+            foreach (var number in existingNumbers)
+            {
+                if (!string.IsNullOrWhiteSpace(number) &&
+                    number.StartsWith("STU") &&
+                    int.TryParse(number.Substring(3), out var parsed))
+                {
+                    if (parsed > maxNumber)
+                    {
+                        maxNumber = parsed;
+                    }
+                }
+            }
+
+            return $"STU{(maxNumber + 1):D3}";
         }
     }
 }

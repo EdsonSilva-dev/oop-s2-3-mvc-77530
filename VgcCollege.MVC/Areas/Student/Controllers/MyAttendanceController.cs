@@ -34,12 +34,33 @@ namespace VgcCollege.MVC.Areas.Student.Controllers
                 return RedirectToAction("AccessDenied", "Home", new { area = "" });
             }
 
-            var records = await _context.AttendanceRecords
+            var rawRecords = await _context.AttendanceRecords
                 .Include(a => a.CourseEnrolment)
                     .ThenInclude(e => e.Course)
                 .Where(a => a.CourseEnrolment != null && a.CourseEnrolment.StudentProfileId == student.Id)
                 .OrderByDescending(a => a.SessionDate)
-                .Select(a => new StudentAttendanceIndexViewModel
+                .ToListAsync();
+
+            var summaries = rawRecords
+                .Where(a => a.CourseEnrolment?.Course != null)
+                .GroupBy(a => new
+                {
+                    a.CourseEnrolment!.Course!.Code,
+                    a.CourseEnrolment.Course.Name
+                })
+                .Select(g => new StudentAttendanceSummaryViewModel
+                {
+                    CourseCode = g.Key.Code,
+                    CourseName = g.Key.Name,
+                    TotalSessions = g.Count(),
+                    PresentCount = g.Count(x => x.Present),
+                    AttendancePercentage = g.Count() == 0 ? 0 : Math.Round((decimal)g.Count(x => x.Present) / g.Count() * 100, 2)
+                })
+                .OrderBy(s => s.CourseName)
+                .ToList();
+
+            var records = rawRecords
+                .Select(a => new StudentAttendanceRecordViewModel
                 {
                     CourseCode = a.CourseEnrolment != null && a.CourseEnrolment.Course != null ? a.CourseEnrolment.Course.Code : "",
                     CourseName = a.CourseEnrolment != null && a.CourseEnrolment.Course != null ? a.CourseEnrolment.Course.Name : "",
@@ -48,9 +69,15 @@ namespace VgcCollege.MVC.Areas.Student.Controllers
                     Present = a.Present,
                     Notes = a.Notes
                 })
-                .ToListAsync();
+                .ToList();
 
-            return View(records);
+            var vm = new StudentAttendanceIndexViewModel
+            {
+                Summaries = summaries,
+                Records = records
+            };
+
+            return View(vm);
         }
     }
 }

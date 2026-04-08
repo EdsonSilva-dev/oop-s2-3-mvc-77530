@@ -1,10 +1,47 @@
-﻿@model IEnumerable<VgcCollege.MVC.Areas.Student.ViewModels.StudentAttendanceIndexViewModel>
+﻿@model VgcCollege.MVC.Areas.Student.ViewModels.StudentAttendanceIndexViewModel
 
 @{
     ViewData["Title"] = "My Attendance";
 }
 
 <h1>My Attendance</h1>
+
+@if (Model.Summaries.Any())
+{
+    <div class="row g-3 mt-1 mb-4">
+        @foreach (var summary in Model.Summaries)
+        {
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@summary.CourseName</h5>
+                        <p class="text-muted mb-2">@summary.CourseCode</p>
+
+                        <p class="mb-1">
+                            <strong>Present:</strong> @summary.PresentCount / @summary.TotalSessions
+                        </p>
+
+                        <p class="mb-0">
+                            <strong>Attendance:</strong>
+                            @if (summary.AttendancePercentage >= 80)
+                            {
+                                <span class="badge bg-success">@summary.AttendancePercentage%</span>
+                            }
+                            else if (summary.AttendancePercentage >= 60)
+                            {
+                                <span class="badge bg-warning text-dark">@summary.AttendancePercentage%</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">@summary.AttendancePercentage%</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
 
 <div class="card shadow-sm border-0 mt-3">
     <div class="card-body">
@@ -19,7 +56,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var record in Model)
+                @foreach (var record in Model.Records)
                 {
                     <tr>
                         <td>
