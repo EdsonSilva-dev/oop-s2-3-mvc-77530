@@ -75,9 +75,12 @@
                         <td>@assignment.DueDate.ToString("dd/MM/yyyy")</td>
                         <td>@(assignment.Weight?.ToString("0.##") ?? "-")</td>
                         <td class="text-end">
-                            <a asp-action="Details" asp-route-id="@assignment.Id" class="btn btn-sm btn-outline-info">Details</a>
-                            <a asp-action="Edit" asp-route-id="@assignment.Id" class="btn btn-sm btn-outline-warning">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@assignment.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Details" asp-route-id="@assignment.Id" class="btn btn-sm btn-outline-info">Details</a>
+                                <a asp-area="Admin" asp-controller="AssignmentResults" asp-action="Index" asp-route-assignmentId="@assignment.Id" class="btn btn-sm btn-outline-secondary">Results</a>
+                                <a asp-action="Edit" asp-route-id="@assignment.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@assignment.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                            </div>
                         </td>
                     </tr>
                 }

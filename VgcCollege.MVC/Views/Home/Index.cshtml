@@ -11,44 +11,182 @@
 
         @if (User.Identity?.IsAuthenticated == true)
         {
-            <a asp-controller="Home" asp-action="RedirectByRole" class="btn btn-primary btn-lg">
+            <a asp-area="" asp-controller="Home" asp-action="RedirectByRole" class="btn btn-primary btn-lg">
                 Go to Dashboard
             </a>
         }
         else
         {
-            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg">
+            <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg">
                 Login
             </a>
         }
     </div>
 </div>
 
-<div class="row g-4">
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0 h-100">
-            <div class="card-body">
-                <h4>Admin</h4>
-                <p>Manage branches, courses, students, enrolments, attendance, assignments, exams, and release exam results.</p>
+@if (User.Identity?.IsAuthenticated != true)
+{
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Admin</h4>
+                    <p>Manage branches, courses, students, enrolments, attendance, assignments, exams, and release exam results.</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0 h-100">
-            <div class="card-body">
-                <h4>Faculty</h4>
-                <p>View assigned courses and students, record attendance, and manage academic results for permitted courses only.</p>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Faculty</h4>
+                    <p>View assigned courses and students, record attendance, and manage academic results for permitted courses only.</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0 h-100">
-            <div class="card-body">
-                <h4>Student</h4>
-                <p>View personal profile, attendance, courses, assignment results, and released exam results.</p>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Student</h4>
+                    <p>View personal profile, attendance, courses, assignment results, and released exam results.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
+else if (User.IsInRole("Admin"))
+{
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Branches</h4>
+                    <p>Manage college branches and campus locations.</p>
+                    <a asp-area="Admin" asp-controller="Branches" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Courses</h4>
+                    <p>Create and manage courses, dates, and branch assignments.</p>
+                    <a asp-area="Admin" asp-controller="Courses" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Students</h4>
+                    <p>Manage student profiles and linked users.</p>
+                    <a asp-area="Admin" asp-controller="Students" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Enrolments</h4>
+                    <p>Track course registrations and student status.</p>
+                    <a asp-area="Admin" asp-controller="Enrolments" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Assignments</h4>
+                    <p>Manage assignments and access gradebook results.</p>
+                    <a asp-area="Admin" asp-controller="Assignments" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Exams</h4>
+                    <p>Manage exams, results, and release status.</p>
+                    <a asp-area="Admin" asp-controller="Exams" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (User.IsInRole("Faculty"))
+{
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>My Courses</h4>
+                    <p>View only the courses assigned to you.</p>
+                    <a asp-area="Faculty" asp-controller="MyCourses" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>My Students</h4>
+                    <p>See students linked to your assigned courses.</p>
+                    <a asp-area="Faculty" asp-controller="MyStudents" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>Gradebook</h4>
+                    <p>Manage assignment results for your courses.</p>
+                    <a asp-area="Faculty" asp-controller="Gradebook" asp-action="Assignments" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (User.IsInRole("Student"))
+{
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>My Courses</h4>
+                    <p>View the courses you are enrolled in.</p>
+                    <a asp-area="Student" asp-controller="MyCourses" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>My Attendance</h4>
+                    <p>Track your attendance records by course.</p>
+                    <a asp-area="Student" asp-controller="MyAttendance" asp-action="Index" class="btn btn-outline-primary">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>My Results</h4>
+                    <p>View assignment and released exam results.</p>
+                    <div class="d-flex gap-2">
+                        <a asp-area="Student" asp-controller="MyResults" asp-action="Assignments" class="btn btn-outline-primary">Assignments</a>
+                        <a asp-area="Student" asp-controller="MyResults" asp-action="Exams" class="btn btn-outline-secondary">Exams</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

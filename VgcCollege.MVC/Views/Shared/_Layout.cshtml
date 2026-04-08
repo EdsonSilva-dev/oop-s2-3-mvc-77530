@@ -36,7 +36,6 @@
                                         Admin
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Branches" asp-action="Index">Branches</a></li>
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Courses" asp-action="Index">Courses</a></li>
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Students" asp-action="Index">Students</a></li>
@@ -44,26 +43,26 @@
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Attendance" asp-action="Index">Attendance</a></li>
                                         <li><hr class="dropdown-divider" /></li>
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Assignments" asp-action="Index">Assignments</a></li>
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="AssignmentResults" asp-action="Index">Assignment Results</a></li>
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Exams" asp-action="Index">Exams</a></li>
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="ExamResults" asp-action="Index">Exam Results</a></li>
                                     </ul>
                                 </li>
                             }
 
-                            @if (User.IsInRole("Faculty"))
+                            @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="facultyMenu" role="button" data-bs-toggle="dropdown">
-                                        Faculty
+                                    <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown">
+                                        Admin
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
-                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="MyCourses" asp-action="Index">My Courses</a></li>
-                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="MyStudents" asp-action="Index">My Students</a></li>
-                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="Attendance" asp-action="Index">Attendance</a></li>
-                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="Gradebook" asp-action="Assignments">Gradebook</a></li>
-                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="Exams" asp-action="Index">Exam Results</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Branches" asp-action="Index">Branches</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Courses" asp-action="Index">Courses</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Students" asp-action="Index">Students</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Enrolments" asp-action="Index">Enrolments</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Attendance" asp-action="Index">Attendance</a></li>
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Assignments" asp-action="Index">Assignments</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Exams" asp-action="Index">Exams</a></li>
                                     </ul>
                                 </li>
                             }
@@ -75,7 +74,6 @@
                                         Student
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" asp-area="Student" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
                                         <li><a class="dropdown-item" asp-area="Student" asp-controller="Profile" asp-action="Index">My Profile</a></li>
                                         <li><a class="dropdown-item" asp-area="Student" asp-controller="MyCourses" asp-action="Index">My Courses</a></li>
                                         <li><a class="dropdown-item" asp-area="Student" asp-controller="MyAttendance" asp-action="Index">My Attendance</a></li>
