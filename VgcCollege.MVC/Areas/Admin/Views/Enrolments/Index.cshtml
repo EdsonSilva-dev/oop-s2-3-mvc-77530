@@ -1,0 +1,132 @@
+﻿@model IEnumerable<VgcCollege.MVC.Areas.Admin.ViewModels.EnrolmentIndexViewModel>
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using VgcCollege.Domain.Enums
+
+@{
+    ViewData["Title"] = "Enrolments";
+    var courseOptions = ViewBag.CourseOptions as List<SelectListItem> ?? new();
+    var statusOptions = ViewBag.StatusOptions as List<SelectListItem> ?? new();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Enrolments</h1>
+    <a asp-action="Create" class="btn btn-primary">Create Enrolment</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="card shadow-sm border-0 mb-3">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">Student Search</label>
+                <input type="text" name="studentSearch" value="@ViewBag.StudentSearch" class="form-control" placeholder="Name or student number" />
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Course</label>
+                <select name="courseId" class="form-select">
+                    <option value="">-- All Courses --</option>
+                    @foreach (var item in courseOptions)
+                    {
+                        if (ViewBag.CourseId != null && ViewBag.CourseId.ToString() == item.Value)
+                        {
+                            <option value="@item.Value" selected>@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Status</label>
+                <select name="status" class="form-select">
+                    <option value="">-- All Statuses --</option>
+                    @foreach (var item in statusOptions)
+                    {
+                        if (ViewBag.Status != null && ViewBag.Status.ToString() == item.Value)
+                        {
+                            <option value="@item.Value" selected>@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-1 d-flex align-items-end">
+                <button type="submit" class="btn btn-outline-primary w-100">Go</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <table class="table table-striped align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Course</th>
+                    <th>Branch</th>
+                    <th>Enrolment Date</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var enrolment in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@enrolment.StudentName</strong><br />
+                            <small class="text-muted">@enrolment.StudentNumber</small>
+                        </td>
+                        <td>
+                            <strong>@enrolment.CourseName</strong><br />
+                            <small class="text-muted">@enrolment.CourseCode</small>
+                        </td>
+                        <td>@enrolment.BranchName</td>
+                        <td>@enrolment.EnrolDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (enrolment.Status == "Active")
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else if (enrolment.Status == "Completed")
+                            {
+                                <span class="badge bg-primary">Completed</span>
+                            }
+                            else if (enrolment.Status == "Withdrawn")
+                            {
+                                <span class="badge bg-warning text-dark">Withdrawn</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">@enrolment.Status</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@enrolment.Id" class="btn btn-sm btn-outline-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@enrolment.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@enrolment.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

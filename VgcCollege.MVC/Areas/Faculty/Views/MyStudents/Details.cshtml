@@ -1,0 +1,45 @@
+﻿@model VgcCollege.Domain.Entities.StudentProfile
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<h1>Student Details</h1>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Student Number</dt>
+            <dd class="col-sm-9">@Model.StudentNumber</dd>
+
+            <dt class="col-sm-3">Full Name</dt>
+            <dd class="col-sm-9">@Model.FullName</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+
+            <dt class="col-sm-3">Phone</dt>
+            <dd class="col-sm-9">@Model.Phone</dd>
+
+            <dt class="col-sm-3">Address</dt>
+            <dd class="col-sm-9">@Model.Address</dd>
+
+            <dt class="col-sm-3">Date of Birth</dt>
+            <dd class="col-sm-9">@Model.DateOfBirth.ToString("dd/MM/yyyy")</dd>
+        </dl>
+
+        @if (Model.Enrolments.Any())
+        {
+            <hr />
+            <h5>Visible Enrolments</h5>
+            <ul>
+                @foreach (var enrolment in Model.Enrolments)
+                {
+                    <li>@enrolment.Course?.Name (@enrolment.Status)</li>
+                }
+            </ul>
+        }
+
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</div>

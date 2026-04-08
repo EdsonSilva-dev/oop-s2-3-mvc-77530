@@ -1,0 +1,47 @@
+﻿@model IEnumerable<VgcCollege.MVC.Areas.Student.ViewModels.StudentAttendanceIndexViewModel>
+
+@{
+    ViewData["Title"] = "My Attendance";
+}
+
+<h1>My Attendance</h1>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <table class="table table-striped align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Session Date</th>
+                    <th>Week</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@record.CourseName</strong><br />
+                            <small class="text-muted">@record.CourseCode</small>
+                        </td>
+                        <td>@record.SessionDate.ToString("dd/MM/yyyy")</td>
+                        <td>@record.WeekNumber</td>
+                        <td>
+                            @if (record.Present)
+                            {
+                                <span class="badge bg-success">Present</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Absent</span>
+                            }
+                        </td>
+                        <td>@record.Notes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

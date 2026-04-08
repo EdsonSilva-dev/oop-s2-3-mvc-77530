@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - VGC College</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="bg-light">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">VGC College</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="RedirectByRole">Dashboard</a>
+                            </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown">
+                                        Admin
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Branches" asp-action="Index">Branches</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Courses" asp-action="Index">Courses</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Students" asp-action="Index">Students</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Enrolments" asp-action="Index">Enrolments</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Attendance" asp-action="Index">Attendance</a></li>
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Assignments" asp-action="Index">Assignments</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="AssignmentResults" asp-action="Index">Assignment Results</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Exams" asp-action="Index">Exams</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="ExamResults" asp-action="Index">Exam Results</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Faculty"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="facultyMenu" role="button" data-bs-toggle="dropdown">
+                                        Faculty
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="MyCourses" asp-action="Index">My Courses</a></li>
+                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="MyStudents" asp-action="Index">My Students</a></li>
+                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="Attendance" asp-action="Index">Attendance</a></li>
+                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="Gradebook" asp-action="Assignments">Gradebook</a></li>
+                                        <li><a class="dropdown-item" asp-area="Faculty" asp-controller="Exams" asp-action="Index">Exam Results</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Student"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="studentMenu" role="button" data-bs-toggle="dropdown">
+                                        Student
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-area="Student" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                                        <li><a class="dropdown-item" asp-area="Student" asp-controller="Profile" asp-action="Index">My Profile</a></li>
+                                        <li><a class="dropdown-item" asp-area="Student" asp-controller="MyCourses" asp-action="Index">My Courses</a></li>
+                                        <li><a class="dropdown-item" asp-area="Student" asp-controller="MyAttendance" asp-action="Index">My Attendance</a></li>
+                                        <li><a class="dropdown-item" asp-area="Student" asp-controller="MyResults" asp-action="Assignments">Assignment Results</a></li>
+                                        <li><a class="dropdown-item" asp-area="Student" asp-controller="MyResults" asp-action="Exams">Exam Results</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-2">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <span class="badge bg-warning text-dark">Admin</span>
+                            }
+                            else if (User.IsInRole("Faculty"))
+                            {
+                                <span class="badge bg-info text-dark">Faculty</span>
+                            }
+                            else if (User.IsInRole("Student"))
+                            {
+                                <span class="badge bg-success">Student</span>
+                            }
+                        }
+
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success shadow-sm">@TempData["SuccessMessage"]</div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger shadow-sm">@TempData["ErrorMessage"]</div>
+        }
+
+        @RenderBody()
+    </main>
+
+    <footer class="border-top bg-white text-muted py-3 mt-4">
+        <div class="container">
+            &copy; 2026 - VGC College Management System
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

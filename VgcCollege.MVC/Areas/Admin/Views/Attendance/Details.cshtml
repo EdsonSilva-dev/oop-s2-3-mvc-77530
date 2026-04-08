@@ -1,0 +1,46 @@
+﻿@model VgcCollege.Domain.Entities.AttendanceRecord
+
+@{
+    ViewData["Title"] = "Attendance Details";
+}
+
+<h1>Attendance Details</h1>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Student</dt>
+            <dd class="col-sm-9">@Model.CourseEnrolment?.StudentProfile?.FullName (@Model.CourseEnrolment?.StudentProfile?.StudentNumber)</dd>
+
+            <dt class="col-sm-3">Course</dt>
+            <dd class="col-sm-9">@Model.CourseEnrolment?.Course?.Name (@Model.CourseEnrolment?.Course?.Code)</dd>
+
+            <dt class="col-sm-3">Branch</dt>
+            <dd class="col-sm-9">@Model.CourseEnrolment?.Course?.Branch?.Name</dd>
+
+            <dt class="col-sm-3">Session Date</dt>
+            <dd class="col-sm-9">@Model.SessionDate.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Week Number</dt>
+            <dd class="col-sm-9">@Model.WeekNumber</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">
+                @if (Model.Present)
+                {
+                    <span class="badge bg-success">Present</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">Absent</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Notes</dt>
+            <dd class="col-sm-9">@Model.Notes</dd>
+        </dl>
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</div>

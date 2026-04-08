@@ -1,0 +1,32 @@
+﻿@model VgcCollege.Domain.Entities.Exam
+
+@{
+    ViewData["Title"] = "Delete Exam";
+}
+
+<h1>Delete Exam</h1>
+
+<div class="alert alert-warning mt-3">
+    Are you sure you want to delete this exam?
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Course</dt>
+            <dd class="col-sm-9">@Model.Course?.Name</dd>
+
+            <dt class="col-sm-3">Title</dt>
+            <dd class="col-sm-9">@Model.Title</dd>
+
+            <dt class="col-sm-3">Results linked</dt>
+            <dd class="col-sm-9">@Model.Results.Count</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

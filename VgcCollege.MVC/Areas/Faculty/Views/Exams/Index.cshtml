@@ -1,0 +1,53 @@
+﻿@model IEnumerable<VgcCollege.MVC.Areas.Faculty.ViewModels.FacultyCourseIndexViewModel>
+
+@{
+    ViewData["Title"] = "My Courses";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>My Courses</h1>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <table class="table table-striped align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Branch</th>
+                    <th>Period</th>
+                    <th>Role</th>
+                    <th>Students</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@course.CourseName</strong><br />
+                            <small class="text-muted">@course.CourseCode</small>
+                        </td>
+                        <td>@course.BranchName</td>
+                        <td>@course.StartDate.ToString("dd/MM/yyyy") - @course.EndDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (course.IsTutor)
+                            {
+                                <span class="badge bg-primary">Tutor</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Faculty</span>
+                            }
+                        </td>
+                        <td>@course.TotalStudents</td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@course.CourseId" class="btn btn-sm btn-outline-info">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<VgcCollege.MVC.Areas.Faculty.ViewModels.FacultyAssignmentResultIndexViewModel>
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Assignment Gradebook";
+    var assignmentOptions = ViewBag.AssignmentOptions as List<SelectListItem> ?? new();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Assignment Gradebook</h1>
+    <a asp-action="CreateAssignmentResult" class="btn btn-primary">Create Assignment Result</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<div class="card shadow-sm border-0 mb-3">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Assignment</label>
+                <select name="assignmentId" class="form-select">
+                    <option value="">-- All My Assignments --</option>
+                    @foreach (var item in assignmentOptions)
+                    {
+                        if (ViewBag.AssignmentId != null && ViewBag.AssignmentId.ToString() == item.Value)
+                        {
+                            <option value="@item.Value" selected>@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-outline-primary w-100">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <table class="table table-striped align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Assignment</th>
+                    <th>Course</th>
+                    <th>Student</th>
+                    <th>Score</th>
+                    <th>Feedback</th>
+                    <th>Graded At</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.AssignmentTitle</td>
+                        <td>
+                            <strong>@item.CourseName</strong><br />
+                            <small class="text-muted">@item.CourseCode</small>
+                        </td>
+                        <td>
+                            <strong>@item.StudentName</strong><br />
+                            <small class="text-muted">@item.StudentNumber</small>
+                        </td>
+                        <td>@item.Score / @item.MaxScore</td>
+                        <td>@item.Feedback</td>
+                        <td>@item.GradedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                        <td class="text-end">
+                            <a asp-action="EditAssignmentResult" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

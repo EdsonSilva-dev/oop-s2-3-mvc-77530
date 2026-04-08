@@ -1,0 +1,49 @@
+﻿@model VgcCollege.Domain.Entities.ExamResult
+
+@{
+    ViewData["Title"] = "Exam Result Details";
+}
+
+<h1>Exam Result Details</h1>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Exam</dt>
+            <dd class="col-sm-9">@Model.Exam?.Title</dd>
+
+            <dt class="col-sm-3">Course</dt>
+            <dd class="col-sm-9">@Model.Exam?.Course?.Name</dd>
+
+            <dt class="col-sm-3">Student</dt>
+            <dd class="col-sm-9">@Model.CourseEnrolment?.StudentProfile?.FullName (@Model.CourseEnrolment?.StudentProfile?.StudentNumber)</dd>
+
+            <dt class="col-sm-3">Score</dt>
+            <dd class="col-sm-9">@Model.Score / @Model.Exam?.MaxScore</dd>
+
+            <dt class="col-sm-3">Grade</dt>
+            <dd class="col-sm-9">@Model.Grade</dd>
+
+            <dt class="col-sm-3">Feedback</dt>
+            <dd class="col-sm-9">@Model.Feedback</dd>
+
+            <dt class="col-sm-3">Release Status</dt>
+            <dd class="col-sm-9">
+                @if (Model.Exam?.ResultsReleased == true)
+                {
+                    <span class="badge bg-success">Released</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning text-dark">Provisional</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Recorded At</dt>
+            <dd class="col-sm-9">@Model.RecordedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</dd>
+        </dl>
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</div>

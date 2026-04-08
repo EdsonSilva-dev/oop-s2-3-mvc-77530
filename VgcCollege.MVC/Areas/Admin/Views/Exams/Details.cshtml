@@ -1,0 +1,47 @@
+﻿@model VgcCollege.Domain.Entities.Exam
+
+@{
+    ViewData["Title"] = "Exam Details";
+}
+
+<h1>Exam Details</h1>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Course</dt>
+            <dd class="col-sm-9">@Model.Course?.Name (@Model.Course?.Code)</dd>
+
+            <dt class="col-sm-3">Title</dt>
+            <dd class="col-sm-9">@Model.Title</dd>
+
+            <dt class="col-sm-3">Exam Date</dt>
+            <dd class="col-sm-9">@Model.ExamDate.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Max Score</dt>
+            <dd class="col-sm-9">@Model.MaxScore</dd>
+
+            <dt class="col-sm-3">Weight</dt>
+            <dd class="col-sm-9">@(Model.Weight?.ToString("0.##") ?? "-")</dd>
+
+            <dt class="col-sm-3">Release Status</dt>
+            <dd class="col-sm-9">
+                @if (Model.ResultsReleased)
+                {
+                    <span class="badge bg-success">Released</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning text-dark">Provisional</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Results Recorded</dt>
+            <dd class="col-sm-9">@Model.Results.Count</dd>
+        </dl>
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+        <a asp-area="Admin" asp-controller="ExamResults" asp-action="Index" asp-route-examId="@Model.Id" class="btn btn-outline-primary">View Results</a>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</div>

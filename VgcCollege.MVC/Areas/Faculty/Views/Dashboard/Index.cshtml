@@ -1,0 +1,55 @@
+﻿@model VgcCollege.MVC.Areas.Faculty.ViewModels.FacultyDashboardViewModel
+
+@{
+    ViewData["Title"] = "Faculty Dashboard";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Faculty Dashboard</h1>
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">My Courses</h5>
+                    <h2>@Model.TotalAssignedCourses</h2>
+                    <a asp-area="Faculty" asp-controller="MyCourses" asp-action="Index" class="btn btn-sm btn-outline-primary">
+                        View Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">My Students</h5>
+                    <h2>@Model.TotalAssignedStudents</h2>
+                    <a asp-area="Faculty" asp-controller="MyStudents" asp-action="Index" class="btn btn-sm btn-outline-primary">
+                        View Students
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Assignments</h5>
+                    <h2>@Model.TotalAssignmentsManaged</h2>
+                    <span class="text-muted">Faculty gradebook next</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Exams</h5>
+                    <h2>@Model.TotalExamsManaged</h2>
+                    <span class="text-muted">Faculty exam tools next</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

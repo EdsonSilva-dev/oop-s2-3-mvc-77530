@@ -1,0 +1,75 @@
+﻿@model VgcCollege.MVC.Areas.Admin.ViewModels.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Admin Dashboard</h1>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Branches</h5>
+                    <h2>@Model.TotalBranches</h2>
+                    <a asp-area="Admin" asp-controller="Branches" asp-action="Index" class="btn btn-sm btn-outline-primary">
+                        Manage Branches
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Courses</h5>
+                    <h2>@Model.TotalCourses</h2>
+                    <a asp-area="Admin" asp-controller="Courses" asp-action="Index" class="btn btn-sm btn-outline-primary">
+                        Manage Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Students</h5>
+                    <h2>@Model.TotalStudents</h2>
+                    <span class="text-muted">Student module coming next</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Faculty</h5>
+                    <h2>@Model.TotalFaculty</h2>
+                    <span class="text-muted">Faculty module coming next</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Enrolments</h5>
+                    <h2>@Model.TotalEnrolments</h2>
+                    <span class="text-muted">Enrolment module coming next</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Exams Pending Release</h5>
+                    <h2>@Model.TotalExamsPendingRelease</h2>
+                    <span class="text-muted">Exam release module coming next</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

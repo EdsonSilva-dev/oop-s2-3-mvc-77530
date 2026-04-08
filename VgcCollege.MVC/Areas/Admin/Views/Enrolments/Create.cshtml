@@ -1,0 +1,54 @@
+﻿@model VgcCollege.MVC.Areas.Admin.ViewModels.EnrolmentCreateEditViewModel
+
+@{
+    ViewData["Title"] = "Create Enrolment";
+}
+
+<h1>Create Enrolment</h1>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="StudentProfileId" class="form-label"></label>
+                    <select asp-for="StudentProfileId" asp-items="Model.Students" class="form-select">
+                        <option value="">-- Select Student --</option>
+                    </select>
+                    <span asp-validation-for="StudentProfileId" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="CourseId" class="form-label"></label>
+                    <select asp-for="CourseId" asp-items="Model.Courses" class="form-select">
+                        <option value="">-- Select Course --</option>
+                    </select>
+                    <span asp-validation-for="CourseId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="EnrolDate" class="form-label"></label>
+                    <input asp-for="EnrolDate" class="form-control" />
+                    <span asp-validation-for="EnrolDate" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Status" class="form-label"></label>
+                    <select asp-for="Status" asp-items="Model.Statuses" class="form-select"></select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

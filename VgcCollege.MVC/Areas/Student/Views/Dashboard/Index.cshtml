@@ -1,0 +1,52 @@
+﻿@model VgcCollege.MVC.Areas.Student.ViewModels.StudentDashboardViewModel
+
+@{
+    ViewData["Title"] = "Student Dashboard";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-2">Student Dashboard</h1>
+    <p class="lead">@Model.FullName (@Model.StudentNumber)</p>
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">My Courses</h5>
+                    <h2>@Model.TotalEnrolments</h2>
+                    <a asp-area="Student" asp-controller="MyCourses" asp-action="Index" class="btn btn-sm btn-outline-primary">View</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Attendance</h5>
+                    <h2>@Model.TotalAttendanceRecords</h2>
+                    <a asp-area="Student" asp-controller="MyAttendance" asp-action="Index" class="btn btn-sm btn-outline-primary">View</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Assignments</h5>
+                    <h2>@Model.TotalAssignmentResults</h2>
+                    <a asp-area="Student" asp-controller="MyResults" asp-action="Assignments" class="btn btn-sm btn-outline-primary">View</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Released Exams</h5>
+                    <h2>@Model.TotalVisibleExamResults</h2>
+                    <a asp-area="Student" asp-controller="MyResults" asp-action="Exams" class="btn btn-sm btn-outline-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

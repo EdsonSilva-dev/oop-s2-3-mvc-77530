@@ -1,0 +1,44 @@
+﻿@model IEnumerable<VgcCollege.MVC.Areas.Student.ViewModels.StudentExamResultViewModel>
+
+@{
+    ViewData["Title"] = "My Exam Results";
+}
+
+<h1>My Exam Results</h1>
+
+<div class="alert alert-info mt-3">
+    Only released exam results are visible here.
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <table class="table table-striped align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Exam</th>
+                    <th>Score</th>
+                    <th>Grade</th>
+                    <th>Feedback</th>
+                    <th>Recorded At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var result in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@result.CourseName</strong><br />
+                            <small class="text-muted">@result.CourseCode</small>
+                        </td>
+                        <td>@result.ExamTitle</td>
+                        <td>@result.Score / @result.MaxScore</td>
+                        <td>@result.Grade</td>
+                        <td>@result.Feedback</td>
+                        <td>@result.RecordedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

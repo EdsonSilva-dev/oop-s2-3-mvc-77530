@@ -1,0 +1,58 @@
+﻿@model VgcCollege.MVC.Areas.Faculty.ViewModels.FacultyAttendanceCreateEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Attendance";
+}
+
+<h1>Edit Attendance Record</h1>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="CourseEnrolmentId" class="form-label"></label>
+                <select asp-for="CourseEnrolmentId" asp-items="Model.Enrolments" class="form-select">
+                    <option value="">-- Select Enrolment --</option>
+                </select>
+                <span asp-validation-for="CourseEnrolmentId" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="SessionDate" class="form-label"></label>
+                    <input asp-for="SessionDate" class="form-control" />
+                    <span asp-validation-for="SessionDate" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label asp-for="WeekNumber" class="form-label"></label>
+                    <input asp-for="WeekNumber" class="form-control" />
+                    <span asp-validation-for="WeekNumber" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3 d-flex align-items-center">
+                    <div class="form-check mt-4">
+                        <input asp-for="Present" class="form-check-input" />
+                        <label asp-for="Present" class="form-check-label"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Notes" class="form-label"></label>
+                <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a asp-action="Index" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

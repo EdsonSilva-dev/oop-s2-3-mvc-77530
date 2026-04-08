@@ -1,0 +1,36 @@
+﻿@model IEnumerable<VgcCollege.MVC.Areas.Student.ViewModels.StudentCourseIndexViewModel>
+
+@{
+    ViewData["Title"] = "My Courses";
+}
+
+<h1>My Courses</h1>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <table class="table table-striped align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Branch</th>
+                    <th>Enrol Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@course.CourseName</strong><br />
+                            <small class="text-muted">@course.CourseCode</small>
+                        </td>
+                        <td>@course.BranchName</td>
+                        <td>@course.EnrolDate.ToString("dd/MM/yyyy")</td>
+                        <td>@course.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

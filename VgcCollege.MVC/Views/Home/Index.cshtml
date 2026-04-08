@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
+    <div class="container-fluid py-3">
+        <h1 class="display-5 fw-bold">VGC College Management System</h1>
+        <p class="col-md-10 fs-5">
+            Manage branches, courses, student registration, enrolments, attendance, assignments, exams, and academic progress in one integrated system.
+        </p>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-controller="Home" asp-action="RedirectByRole" class="btn btn-primary btn-lg">
+                Go to Dashboard
+            </a>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg">
+                Login
+            </a>
+        }
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h4>Admin</h4>
+                <p>Manage branches, courses, students, enrolments, attendance, assignments, exams, and release exam results.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h4>Faculty</h4>
+                <p>View assigned courses and students, record attendance, and manage academic results for permitted courses only.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h4>Student</h4>
+                <p>View personal profile, attendance, courses, assignment results, and released exam results.</p>
+            </div>
+        </div>
+    </div>
+</div>

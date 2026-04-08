@@ -1,0 +1,42 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+}
+
+.card {
+    border-radius: 0.8rem;
+}
+
+    .card .card-title {
+        font-weight: 600;
+    }
+
+.table thead th {
+    background-color: #f8f9fa;
+}
+
+.btn {
+    border-radius: 0.5rem;
+}
+
+.badge {
+    font-size: 0.8rem;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+footer {
+    font-size: 0.95rem;
+}

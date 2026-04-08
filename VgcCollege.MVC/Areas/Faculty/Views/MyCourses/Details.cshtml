@@ -1,0 +1,51 @@
+﻿@model VgcCollege.Domain.Entities.Course
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<h1>Course Details</h1>
+
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Code</dt>
+            <dd class="col-sm-9">@Model.Code</dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Branch</dt>
+            <dd class="col-sm-9">@Model.Branch?.Name</dd>
+
+            <dt class="col-sm-3">Start Date</dt>
+            <dd class="col-sm-9">@Model.StartDate.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">End Date</dt>
+            <dd class="col-sm-9">@Model.EndDate.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Total Enrolments</dt>
+            <dd class="col-sm-9">@Model.Enrolments.Count</dd>
+
+            <dt class="col-sm-3">Assignments</dt>
+            <dd class="col-sm-9">@Model.Assignments.Count</dd>
+
+            <dt class="col-sm-3">Exams</dt>
+            <dd class="col-sm-9">@Model.Exams.Count</dd>
+        </dl>
+
+        @if (Model.Enrolments.Any())
+        {
+            <hr />
+            <h5>Students in this Course</h5>
+            <ul>
+                @foreach (var enrolment in Model.Enrolments)
+                {
+                    <li>@enrolment.StudentProfile?.FullName (@enrolment.StudentProfile?.StudentNumber)</li>
+                }
+            </ul>
+        }
+
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</div>

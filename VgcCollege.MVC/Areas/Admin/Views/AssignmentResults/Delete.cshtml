@@ -1,0 +1,32 @@
+﻿@model VgcCollege.Domain.Entities.AssignmentResult
+
+@{
+    ViewData["Title"] = "Delete Assignment Result";
+}
+
+<h1>Delete Assignment Result</h1>
+
+<div class="alert alert-warning mt-3">
+    Are you sure you want to delete this assignment result?
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Assignment</dt>
+            <dd class="col-sm-9">@Model.Assignment?.Title</dd>
+
+            <dt class="col-sm-3">Student</dt>
+            <dd class="col-sm-9">@Model.CourseEnrolment?.StudentProfile?.FullName</dd>
+
+            <dt class="col-sm-3">Score</dt>
+            <dd class="col-sm-9">@Model.Score / @Model.Assignment?.MaxScore</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
